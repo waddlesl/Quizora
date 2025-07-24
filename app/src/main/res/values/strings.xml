@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Quizora</string>
+    <string name="title_activity_student_home">StudentHome</string>
+    <string name="title_activity_student_profile">StudentProfile</string>
 </resources>

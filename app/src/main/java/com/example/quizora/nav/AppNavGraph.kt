@@ -11,7 +11,9 @@ import com.example.quizora.auth.LoginScreen
 import com.example.quizora.auth.LoginViewModel
 import com.example.quizora.auth.RegisterScreen
 import com.example.quizora.home.StudentHomeScreen
+import com.example.quizora.home.StudentProfileScreen
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.quizora.quizzes.FlashcardSwipeScreen
 import com.example.quizora.quizzes.FlashcardViewModel
 import androidx.compose.runtime.getValue
@@ -32,7 +34,9 @@ fun AppNavGraph() {
         composable("register") { RegisterScreen(navController) }
         composable("flashcard") { FlashcardSwipeScreen (navController = navController)
         }
-
+        composable("student_profile") {
+            StudentProfileScreen(sharedViewModel)
+        }
         composable("student_home") { StudentHomeScreen(navController = navController, sharedViewModel) }}
 
         }

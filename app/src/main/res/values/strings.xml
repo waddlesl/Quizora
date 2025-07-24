@@ -2,4 +2,6 @@
     <string name="app_name">Quizora</string>
     <string name="title_activity_student_home">StudentHome</string>
     <string name="title_activity_student_profile">StudentProfile</string>
+    <string name="title_activity_admin_home_screen">AdminHomeScreen</string>
+    <string name="title_activity_choosing_quiz">ChoosingQuiz</string>
 </resources>

@@ -29,7 +29,7 @@ fun AppNavGraph() {
     val viewModel: FlashcardViewModel = viewModel()
     val flashcards by viewModel.flashcards.collectAsState()
 
-    NavHost(navController, startDestination = "student_home") {
+    NavHost(navController, startDestination = "login") {
         composable("login") { LoginScreen(navController, sharedViewModel) }
         composable("register") { RegisterScreen(navController) }
         composable("flashcard") { FlashcardSwipeScreen (navController = navController)

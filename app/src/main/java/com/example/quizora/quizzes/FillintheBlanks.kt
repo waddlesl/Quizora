@@ -55,35 +55,41 @@ fun fillstart(navController: NavHostController,viewModel: LoginViewModel) {
     if (showGame) {
         fillplay(viewModel = viewModel,onExit = { showGame = false })
     } else {
-        Box(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            contentAlignment = Alignment.TopStart
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
         ) {
-            IconButton(onClick = { navController.popBackStack() }) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Back",
-                    tint = MaterialTheme.colorScheme.onBackground
-                )
-            }
-        }
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-
-            LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
-                item{
-                    Text("Ready?", style = MaterialTheme.typography.headlineMedium)
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+                    .background(MaterialTheme.colorScheme.background),
+                contentAlignment = Alignment.TopStart
+            ) {
+                IconButton(onClick = { navController.popBackStack() }) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back",
+                        tint = MaterialTheme.colorScheme.onBackground
+                    )
                 }
-                item {
-                    Button(onClick = { showGame = true }) {
-                        Text("Start Game")
+            }
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+
+                LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
+                    item{
+                        Text("Ready?", style = MaterialTheme.typography.headlineMedium, color = Color.White)
+                    }
+                    item {
+                        Button(onClick = { showGame = true }) {
+                            Text("Start Game")
+                        }
                     }
                 }
             }
         }
-    }
-}
+    }}
 
 
 @Composable

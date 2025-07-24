@@ -26,7 +26,7 @@ import androidx.navigation.NavHostController
 import com.example.quizora.data.FlashCard
 import kotlin.math.roundToInt
 
-@RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
+
 @Composable
 fun FlashcardSwipeScreen(
     viewModel: FlashcardViewModel = viewModel(),

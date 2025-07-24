@@ -62,10 +62,16 @@ fun start(navController: NavHostController,viewModel: LoginViewModel) {
     if (showGame) {
         play(viewModel = viewModel,onExit = { showGame = false })
     } else {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+        ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(16.dp)
+                .background(MaterialTheme.colorScheme.background),
             contentAlignment = Alignment.TopStart
         ) {
             IconButton(onClick = { navController.popBackStack() }) {
@@ -80,7 +86,7 @@ fun start(navController: NavHostController,viewModel: LoginViewModel) {
 
             LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
                 item{
-                    Text("Ready?", style = MaterialTheme.typography.headlineMedium)
+                    Text("Ready?", style = MaterialTheme.typography.headlineMedium, color = Color.White)
                 }
                 item {
                     Button(onClick = { showGame = true }) {
@@ -90,7 +96,7 @@ fun start(navController: NavHostController,viewModel: LoginViewModel) {
             }
         }
     }
-}
+}}
 
 
 @Composable

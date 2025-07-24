@@ -23,7 +23,6 @@ import com.example.quizora.home.AdminHomeLayout
 import com.example.quizora.quizzes.FillinScreen
 import com.example.quizora.quizzes.chooseQuiz
 
-@RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
 @Composable
 fun AppNavGraph() {
     val navController = rememberNavController()

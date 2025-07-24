@@ -41,26 +41,19 @@ import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONException
 
-val quizQuestions = mutableStateListOf<Question>()
-
-data class Question(
-    val questionText: String,
-    val choices: List<String>,
-    val answer: String
-)
 
 @Composable
-fun SpeedRoundScreen(navController: NavHostController, viewModel: LoginViewModel) {
-    GetQuestionScreen()
-    start(navController = navController, viewModel = viewModel)
+fun FillinScreen(navController: NavHostController, viewModel: LoginViewModel) {
+    fillGetQuestionScreen()
+    fillstart(navController = navController, viewModel = viewModel)
 }
 
 @Composable
-fun start(navController: NavHostController,viewModel: LoginViewModel) {
+fun fillstart(navController: NavHostController,viewModel: LoginViewModel) {
     var showGame by remember { mutableStateOf(false) }
 
     if (showGame) {
-        play(viewModel = viewModel,onExit = { showGame = false })
+        fillplay(viewModel = viewModel,onExit = { showGame = false })
     } else {
         Box(
             modifier = Modifier
@@ -94,10 +87,10 @@ fun start(navController: NavHostController,viewModel: LoginViewModel) {
 
 
 @Composable
-fun play(viewModel: LoginViewModel, onExit: () -> Unit) {
+fun fillplay(viewModel: LoginViewModel, onExit: () -> Unit) {
     var retryKey by remember { mutableIntStateOf(0) }
 
-    QuizScreen(
+    fillQuizScreen(
         viewModel = viewModel,
         questions = quizQuestions,
         onRetry = { retryKey++ },
@@ -107,7 +100,7 @@ fun play(viewModel: LoginViewModel, onExit: () -> Unit) {
 }
 
 @Composable
-fun QuizScreen(
+fun fillQuizScreen(
     questions: List<Question>,
     onRetry: () -> Unit,
     onExit: () -> Unit,
@@ -117,7 +110,7 @@ fun QuizScreen(
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     var currentIndex by remember(key) { mutableIntStateOf(0) }
-    var selectedOption by remember(key) { mutableStateOf<String?>(null) }
+    var userInput by remember(key) { mutableStateOf<String?>(null) }
     var score by remember(key) { mutableIntStateOf(0) }
 
     var showFeedback by remember(key) { mutableStateOf(false) }
@@ -141,7 +134,7 @@ fun QuizScreen(
                 }
                 if (!showFeedback) {
                     currentIndex++
-                    selectedOption = null
+                    userInput = ""
                 }
             }
         }
@@ -212,51 +205,15 @@ fun QuizScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                question.choices.forEachIndexed { index, option ->
-                    OutlinedButton(
-                        onClick = {
-                            if (!showFeedback) selectedOption = option
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 6.dp),
-                        shape = RoundedCornerShape(12.dp),
-                        border = BorderStroke(
-                            1.dp,
-                            if (selectedOption == option) Color(0xFF2F8EFF) else Color.Gray
-                        ),
-                        colors = ButtonDefaults.outlinedButtonColors(
-                            containerColor = MaterialTheme.colorScheme.background,
-                            contentColor = Color.White
-                        )
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(28.dp)
-                                    .background(
-                                        if (selectedOption == option) Color(0xFF2F8EFF) else Color.Gray,
-                                        shape = CircleShape
-                                    ),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(
-                                    "${index + 1}",
-                                    color = Color.White,
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
-                            }
+                var userInput by remember(key) { mutableStateOf("") }
 
-                            Spacer(modifier = Modifier.width(12.dp))
-
-                            Text(option, fontSize = 16.sp)
-                        }
-                    }
-                }
+                OutlinedTextField(
+                    value = userInput,
+                    onValueChange = { userInput = it },
+                    label = { Text("Type your answer") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth()
+                )
 
                 Spacer(modifier = Modifier.height(24.dp))
 
@@ -268,7 +225,7 @@ fun QuizScreen(
                         onClick = {
                             if (!showFeedback) {
                                 currentIndex++
-                                selectedOption = null
+                                userInput= ""
                             }
                         },
                         colors = ButtonDefaults.outlinedButtonColors(
@@ -281,13 +238,13 @@ fun QuizScreen(
 
                     Button(
                         onClick = {
-                            if (selectedOption != null) {
-                                isCorrect = selectedOption == question.answer
+                            if (userInput.isNotBlank()) {
+                                isCorrect = userInput.trim().equals(question.answer.trim(), ignoreCase = true)
                                 if (isCorrect) score++
                                 showFeedback = true
                             }
                         },
-                        enabled = selectedOption != null && !showFeedback,
+                        enabled = userInput.isNotBlank() && !showFeedback,
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color(0xFF2F8EFF),
                             contentColor = Color.White,
@@ -333,7 +290,7 @@ fun QuizScreen(
                     Button(
                         onClick = {
                             currentIndex++
-                            selectedOption = null
+                            userInput = ""
                             showFeedback = false
                         },
                         colors = ButtonDefaults.buttonColors(
@@ -363,7 +320,7 @@ fun QuizScreen(
                 }
                 Button(onClick = {
                     coroutineScope.launch {
-                        submitScore(context, viewModel, score)
+                        fillsubmitScore(context, viewModel, score)
                     }
                     onExit()
                 }) {
@@ -376,7 +333,7 @@ fun QuizScreen(
 
 
 
-suspend fun submitScore(context: Context, viewModel: LoginViewModel, score: Int) {
+suspend fun fillsubmitScore(context: Context, viewModel: LoginViewModel, score: Int) {
     val user = viewModel.currentUser
     user?.let {
         ScoreService.submitScore(
@@ -390,7 +347,7 @@ suspend fun submitScore(context: Context, viewModel: LoginViewModel, score: Int)
 
 
 @Composable
-fun GetQuestionScreen() {
+fun fillGetQuestionScreen() {
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {

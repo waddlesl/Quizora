@@ -20,6 +20,7 @@ import androidx.compose.runtime.getValue
 import com.example.quizora.quizzes.SpeedRoundScreen
 import androidx.navigation.NavController
 import com.example.quizora.home.AdminHomeLayout
+import com.example.quizora.quizzes.FillinScreen
 import com.example.quizora.quizzes.chooseQuiz
 
 @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
@@ -32,12 +33,15 @@ fun AppNavGraph() {
     val viewModel: FlashcardViewModel = viewModel()
     val flashcards by viewModel.flashcards.collectAsState()
 
-    NavHost(navController, startDestination = "admin_home") {
+    NavHost(navController, startDestination = "student_home") {
         composable("login") { LoginScreen(navController, sharedViewModel) }
         composable("register") { RegisterScreen(navController) }
         composable("flashcard") { FlashcardSwipeScreen (navController = navController)
         }
         composable("speed_round") { SpeedRoundScreen(navController, sharedViewModel)
+        }
+
+        composable("fill_in") { FillinScreen(navController, sharedViewModel)
         }
 
         composable("student_profile") {
@@ -52,7 +56,7 @@ fun AppNavGraph() {
         }}
         }
 
-        }
+
 
 
 

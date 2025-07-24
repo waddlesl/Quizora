@@ -72,7 +72,7 @@ fun StudentHomeScreen(navController: NavHostController, viewModel: LoginViewMode
             Line2(onClick = {
                 // leaderboard screen
             })
-            Line3()
+            Line3(navController)
         }
 
         Column(
@@ -168,8 +168,8 @@ fun Line1(navController: NavHostController, username: String?) {
                 .padding(start = 16.dp, end = 16.dp, top = 24.dp)
         ) {//placeholder pics. change pics for each game
             GameRow(R.drawable.math, "Multiple Choice") { navController.navigate("speed_round") }
-            GameRow(R.drawable.chem, "Review?") { navController.navigate("flashcard") }
-            GameRow(R.drawable.code, "Game #3") { /* game 3 screen */ }
+            GameRow(R.drawable.chem, "Fill in The Blanks") { navController.navigate("fill_in") }
+            GameRow(R.drawable.code, "Review?") { navController.navigate("flashcard") }
         }
     }
 

@@ -37,6 +37,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.quizora.R
 
 
@@ -44,16 +45,17 @@ import com.example.quizora.R
 fun StudentHomeScreen(navController: NavHostController, viewModel: LoginViewModel) {
     val user = viewModel.currentUser
 
+
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF7D5260))
+            .background(Color(0xFF25363E))
     ) {
         Column(
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .fillMaxWidth()
-                .background(Color(0xFF6650a4))
+                .background(Color(0xFFECFB77))
                 .padding(16.dp)
         ) {
         }
@@ -64,7 +66,7 @@ fun StudentHomeScreen(navController: NavHostController, viewModel: LoginViewMode
                 .fillMaxWidth()
                 .padding(20.dp)
         ){
-            Line1(navController)
+            Line1(navController, user?.name)
             Line2(onClick = {
                 // leaderboard screen
             })
@@ -75,58 +77,59 @@ fun StudentHomeScreen(navController: NavHostController, viewModel: LoginViewMode
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
-                .background(Color(0xFF6650a4))
+                .background(Color(0xFFECFB77))
                 .padding(20.dp)
         ) {
 
         }
     }}
 
-    @Composable
-    fun Line1(navController: NavHostController) {
-        Row(
+@Composable
+fun Line1(navController: NavHostController, username: String?) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 20.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 20.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .weight(1f)
+                .paddingFromBaseline(top = 50.dp)
         ) {
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .paddingFromBaseline(top=50.dp)
-            ) {
-                Text(
-                    text = "Welcome,",
-                    fontFamily = FontFamily.Serif,
-                    fontSize = 40.sp,
-                    color = Color.White
-                )
-                Text(
-                    text = "User!",
-                    fontFamily = FontFamily.Serif,
-                    fontSize = 25.sp,
-                    color = Color.White
-                )
-            }
+            Text(
+                text = "Welcome,",
+                fontFamily = FontFamily.Serif,
+                fontSize = 40.sp,
+                color = Color.White
+            )
+            Text(
+                text = "${username ?: "Student"}!",
+                fontFamily = FontFamily.Serif,
+                fontSize = 25.sp,
+                color = Color.White
+            )
+        }
 
-            Button(
-                onClick = { navController.navigate("student_profile") }, //navigates to student profile screen
-                modifier = Modifier
-                    .size(50.dp)
-                    .clip(CircleShape),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF625B71)),
-                contentPadding = PaddingValues(0.dp)
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.user),
-                    contentDescription = "User Profile",
-                    modifier = Modifier.size(30.dp)
-                )
-            }
+        Button(
+            onClick = { navController.navigate("student_profile") },
+            modifier = Modifier
+                .size(50.dp)
+                .clip(CircleShape),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF9ECEC0)),
+            contentPadding = PaddingValues(0.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.user),
+                contentDescription = "User Profile",
+                modifier = Modifier.size(30.dp)
+            )
         }
     }
+}
 
-    @Composable
+
+@Composable
     fun Line2(onClick: () -> Unit) {
         //placeholder, where the leaderboard will be shown later.
 
@@ -137,7 +140,7 @@ fun StudentHomeScreen(navController: NavHostController, viewModel: LoginViewMode
                     .padding(horizontal = 12.dp, vertical = 8.dp)
                     .clickable { onClick() },
                 shape = RoundedCornerShape(12.dp),
-                colors = CardDefaults.cardColors(containerColor = Color(0xFF625B71))
+                colors = CardDefaults.cardColors(containerColor = Color(0xFF9ECEC0))
             ) {
                 Column(
                     modifier = Modifier
@@ -164,7 +167,6 @@ fun StudentHomeScreen(navController: NavHostController, viewModel: LoginViewMode
         ) {//placeholder pics. change pics for each game
             GameRow(R.drawable.math, "Game #1") { /* game 1 screen */ }
             GameRow(R.drawable.chem, "Game #2") { /* game 2 screen */ }
-            GameRow(R.drawable.code, "Game #3") { /* game 3 screen */ }
         }
     }
 
@@ -181,7 +183,7 @@ fun StudentHomeScreen(navController: NavHostController, viewModel: LoginViewMode
                     .width(200.dp)
                     .height(80.dp),
                 shape = RoundedCornerShape(9.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF625B71)),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF9ECEC0)),
                 contentPadding = PaddingValues(0.dp)
             ) {
                 Image(
@@ -200,6 +202,8 @@ fun StudentHomeScreen(navController: NavHostController, viewModel: LoginViewMode
             )
         }
     }
+
+
 
 
 

@@ -17,7 +17,7 @@ fun AppNavGraph() {
     val navController = rememberNavController()
     val sharedViewModel: LoginViewModel = viewModel()
 
-    NavHost(navController, startDestination = "login") {
+    NavHost(navController, startDestination = "student_home") {
         composable("login") { LoginScreen(navController, sharedViewModel) }
         composable("register") { RegisterScreen(navController) }
         composable("student_home") {

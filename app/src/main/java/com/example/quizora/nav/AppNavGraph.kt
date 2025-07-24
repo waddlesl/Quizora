@@ -13,11 +13,10 @@ import com.example.quizora.auth.RegisterScreen
 import com.example.quizora.home.StudentHomeScreen
 import com.example.quizora.home.StudentProfileScreen
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
 import com.example.quizora.quizzes.FlashcardSwipeScreen
 import com.example.quizora.quizzes.FlashcardViewModel
 import androidx.compose.runtime.getValue
-import androidx.navigation.NavController
+import com.example.quizora.quizzes.SpeedRoundScreen
 
 @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
 @Composable
@@ -34,11 +33,15 @@ fun AppNavGraph() {
         composable("register") { RegisterScreen(navController) }
         composable("flashcard") { FlashcardSwipeScreen (navController = navController)
         }
+        composable("speed_round") { SpeedRoundScreen(navController, sharedViewModel)
+        }
+
         composable("student_profile") {
             StudentProfileScreen(sharedViewModel)
         }
         composable("student_home") { StudentHomeScreen(navController = navController, sharedViewModel) }}
 
         }
+
 
 

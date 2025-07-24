@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class FlashCard(
-    val word: String,
-    val define: String
+    val answer: String,
+    val question: String
 )

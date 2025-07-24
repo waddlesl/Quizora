@@ -26,7 +26,8 @@ object RegisterService {
     }
 
     suspend fun register(name: String, email: String, password: String): RegisterResponse {
-        return client.post("http://192.168.18.16:8080/quizora/REST/register.php") {
+        return client.post("http://192.168.1.9/quizora/REST/register.php") // 192.168.18.16:8080
+         {
             contentType(ContentType.Application.Json)
             setBody(RegisterRequest(name, email, password))
         }.body()

@@ -38,11 +38,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.quizora.R
+import com.example.quizora.data.User
 
 
 @Composable
 fun StudentHomeScreen(navController: NavHostController, viewModel: LoginViewModel) {
     val user = viewModel.currentUser
+    val navigation = navController
 
     Box(
         modifier = Modifier
@@ -64,11 +66,11 @@ fun StudentHomeScreen(navController: NavHostController, viewModel: LoginViewMode
                 .fillMaxWidth()
                 .padding(20.dp)
         ){
-            Line1(navController)
+            Line1(navController, user)
             Line2(onClick = {
                 // leaderboard screen
             })
-            Line3()
+            Line3(navigation)
         }
 
         Column(
@@ -83,7 +85,7 @@ fun StudentHomeScreen(navController: NavHostController, viewModel: LoginViewMode
     }}
 
     @Composable
-    fun Line1(navController: NavHostController) {
+    fun Line1(navController: NavHostController, user: User?) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -101,12 +103,22 @@ fun StudentHomeScreen(navController: NavHostController, viewModel: LoginViewMode
                     fontSize = 40.sp,
                     color = Color.White
                 )
-                Text(
-                    text = "User!",
+                if (user != null){
+                    Text(
+                    text = "${user?.name}!",
                     fontFamily = FontFamily.Serif,
                     fontSize = 25.sp,
                     color = Color.White
-                )
+                )}
+                else{
+                    Text(
+                        text = "User!",
+                        fontFamily = FontFamily.Serif,
+                        fontSize = 25.sp,
+                        color = Color.White
+                    )
+
+                }
             }
 
             Button(
@@ -155,15 +167,15 @@ fun StudentHomeScreen(navController: NavHostController, viewModel: LoginViewMode
 
 
     @Composable
-    fun Line3() {
+    fun Line3(navController: NavHostController) {
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, top = 24.dp)
         ) {//placeholder pics. change pics for each game
-            GameRow(R.drawable.math, "Game #1") { /* game 1 screen */ }
-            GameRow(R.drawable.chem, "Game #2") { /* game 2 screen */ }
+            GameRow(R.drawable.math, "Multiple Choice") { navController.navigate("speed_round") }
+            GameRow(R.drawable.chem, "Review?") { navController.navigate("flashcard") }
             GameRow(R.drawable.code, "Game #3") { /* game 3 screen */ }
         }
     }

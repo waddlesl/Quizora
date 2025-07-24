@@ -165,7 +165,7 @@ fun FlashcardSwipeScreen(
                             if (index == 0 && showBack) {
 
                                 Text(
-                                    text = card.word,
+                                    text = card.answer,
                                     style = MaterialTheme.typography.titleLarge,
                                     modifier = Modifier.graphicsLayer {
                                         rotationY = 180f // keep the back text upright
@@ -174,7 +174,7 @@ fun FlashcardSwipeScreen(
                             } else {
 
                                 Text(
-                                    text = card.define,
+                                    text = card.question,
                                     style = MaterialTheme.typography.titleLarge
                                 )
                             }

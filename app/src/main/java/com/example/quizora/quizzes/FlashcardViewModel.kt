@@ -43,7 +43,7 @@ class FlashcardViewModel : ViewModel() {
                 val response: List<FlashCard> = client.get("http://192.168.1.9/quizora/REST/flashcard.php") {
                     accept(ContentType.Application.Json)
                 }.body()
-                Log.d("FlashcardViewModel", "Fetched flashcards: $response") // 👈 Add this
+                Log.d("FlashcardViewModel", "Fetched flashcards: $response")
                 _flashcards.value = response
             } catch (e: Exception) {
                 Log.e("FlashcardViewModel", "Error fetching flashcards", e)

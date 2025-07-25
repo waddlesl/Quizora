@@ -71,7 +71,7 @@ fun AppNavGraph() {
             SpeedRoundScreen(
                 courseCode = courseCode,
                 navController = navController,
-                viewModel = loginViewModel
+                viewModel = sharedViewModel
             )
         }
 

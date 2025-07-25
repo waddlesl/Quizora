@@ -1,6 +1,5 @@
 package com.example.quizora.quizzes
 
-import android.content.Context
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.fadeIn
@@ -15,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -35,11 +35,10 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.quizora.auth.LoginViewModel
-import com.example.quizora.network.LoginService.ScoreService
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONException
+
 
 val quizQuestions = mutableStateListOf<Question>()
 
@@ -120,6 +119,8 @@ fun QuizScreen(
     key: Int,
     viewModel: LoginViewModel
 ) {
+
+    val userId = viewModel.currentUser?.id
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     var currentIndex by remember(key) { mutableIntStateOf(0) }
@@ -368,8 +369,17 @@ fun QuizScreen(
                     Text("Retry")
                 }
                 Button(onClick = {
-                    coroutineScope.launch {
-                        submitScore(context, viewModel, score)
+                    viewModel.submitUserScore(score, context) { result ->
+                        if (!result) {
+                            Toast.makeText(context, "Score submission failed", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    viewModel.updateStreak(userId, score) { success ->
+                        if (success) {
+                            Toast.makeText(context, "Streak updated!", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(context, "Failed to update streak", Toast.LENGTH_SHORT).show()
+                        }
                     }
                     onExit()
                 }) {
@@ -382,16 +392,6 @@ fun QuizScreen(
 
 
 
-suspend fun submitScore(context: Context, viewModel: LoginViewModel, score: Int) {
-    val user = viewModel.currentUser
-    user?.let {
-        ScoreService.submitScore(
-            userId = it.id,
-            score = score,
-            context = context
-        )
-    }
-}
 
 
 

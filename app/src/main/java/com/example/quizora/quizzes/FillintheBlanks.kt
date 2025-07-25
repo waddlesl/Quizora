@@ -8,13 +8,13 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -113,6 +113,7 @@ fun fillQuizScreen(
     key: Int,
     viewModel: LoginViewModel
 ) {
+    val userId = viewModel.currentUser?.id
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     var currentIndex by remember(key) { mutableIntStateOf(0) }
@@ -324,14 +325,24 @@ fun fillQuizScreen(
                 Button(onClick = onRetry) {
                     Text("Retry")
                 }
-                Button(onClick = {
-                    coroutineScope.launch {
-                        fillsubmitScore(context, viewModel, score)
+                Button(onClick = {viewModel.submitUserScore(score, context) { result ->
+                    if (!result) {
+                        Toast.makeText(context, "Score submission failed", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                    viewModel.updateStreak(userId, score) { success ->
+                        if (success) {
+                            Toast.makeText(context, "Streak updated!", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(context, "Failed to update streak", Toast.LENGTH_SHORT).show()
+                        }
                     }
                     onExit()
                 }) {
                     Text("Submit")
                 }
+
             }
         }
     }

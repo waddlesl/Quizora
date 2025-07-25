@@ -40,7 +40,7 @@ fun AdminHomeLayout(navController: NavController) {
                 .fillMaxWidth()
                 .padding(20.dp)
         ) {
-            Top1()
+            Top1(navController)
             Spacer(modifier = Modifier.height(24.dp))
             Top2()
         }
@@ -64,7 +64,7 @@ fun AdminHomeLayout(navController: NavController) {
 }
 
 @Composable
-fun Top1() {
+fun Top1(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -91,7 +91,7 @@ fun Top1() {
         }
 
         Button(
-            onClick = {  },
+            onClick = {  navController.navigate("login")},
             modifier = Modifier
                 .size(50.dp)
                 .clip(CircleShape),

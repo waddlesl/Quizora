@@ -209,7 +209,7 @@ private fun submitQuizToBackend(
     val requestBody: RequestBody = RequestBody.create(mediaType, jsonBody)
 
     val request = Request.Builder()
-        .url("http://10.0.2.2/submit_quiz.php")
+        .url("http://192.168.1.9/quizora/REST/submit_quiz.php")
         .post(requestBody)
         .build()
 

@@ -32,6 +32,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,13 +53,13 @@ fun StudentHomeScreen(navController: NavHostController, viewModel: LoginViewMode
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF25363E))
+            .background(MaterialTheme.colorScheme.background)
     ) {
         Column(
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .fillMaxWidth()
-                .background(Color(0xFFECFB77))
+                .background(MaterialTheme.colorScheme.background)
                 .padding(16.dp)
         ) {
         }
@@ -78,7 +79,7 @@ fun StudentHomeScreen(navController: NavHostController, viewModel: LoginViewMode
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
-                .background(Color(0xFF6650a4))
+                .background(MaterialTheme.colorScheme.background)
                 .padding(20.dp)
         ) {
 

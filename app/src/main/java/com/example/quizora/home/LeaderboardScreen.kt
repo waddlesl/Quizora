@@ -81,7 +81,10 @@ fun LeaderboardScreen(viewModel: LeaderboardViewModel = LeaderboardViewModel()) 
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text("${index + 1}. ${user.name}", fontSize = 18.sp)
-                Text("${user.xp} XP", fontSize = 16.sp)
+                Column(horizontalAlignment = Alignment.End) {
+                    Text("${user.xp} XP", fontSize = 16.sp)
+                    Text("🔥 Streak: ${user.current_streak ?: 0}", fontSize = 14.sp)
+                }
             }
         }
     }

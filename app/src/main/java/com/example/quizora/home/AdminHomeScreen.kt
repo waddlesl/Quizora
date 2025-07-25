@@ -24,13 +24,13 @@ fun AdminHomeLayout(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF25363E))
+            .background(MaterialTheme.colorScheme.background)
     ) {
         Column(
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .fillMaxWidth()
-                .background(Color(0xFFECFB77))
+                .background(MaterialTheme.colorScheme.background)
                 .padding(16.dp)
         ) {}
 
@@ -49,7 +49,7 @@ fun AdminHomeLayout(navController: NavController) {
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
-                .background(Color(0xFFECFB77))
+                .background(MaterialTheme.colorScheme.background)
                 .padding(20.dp)
         ) {}
 

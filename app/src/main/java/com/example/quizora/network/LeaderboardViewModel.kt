@@ -32,7 +32,8 @@ import kotlin.collections.filter
 @Serializable
 data class LeaderboardEntry(
     val name: String,
-    val xp: Int
+    val xp: Int,
+    val current_streak: Int? = 0 // nullable in case streak doesn't exist yet
 )
 
 

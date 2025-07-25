@@ -3,6 +3,8 @@ package com.example.quizora.quizzes
 import androidx.compose.foundation.background
 import androidx.compose.runtime.getValue
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
@@ -24,7 +26,7 @@ fun CourseListScreen(
 ) {
     val courses by courseViewModel.courses
 
-    Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
+    Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).verticalScroll(rememberScrollState()) ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()

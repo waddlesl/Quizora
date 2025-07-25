@@ -2,6 +2,7 @@ package com.example.quizora.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,7 +23,7 @@ fun StudentProfileScreen(viewModel: LoginViewModel) {
 
     Box(
         modifier = Modifier
-            .background(Color(0xFF25363E))
+            .background(MaterialTheme.colorScheme.background)
             .fillMaxSize()
             .padding(16.dp),
         contentAlignment = Alignment.Center,

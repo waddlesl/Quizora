@@ -43,8 +43,8 @@ import org.json.JSONException
 
 
 @Composable
-fun FillinScreen(navController: NavHostController, viewModel: LoginViewModel) {
-    fillGetQuestionScreen()
+fun FillinScreen(courseCode: String? = null,navController: NavHostController, viewModel: LoginViewModel) {
+    fillGetQuestionScreen(courseCode = courseCode)
     fillstart(navController = navController, viewModel = viewModel)
 }
 
@@ -353,11 +353,13 @@ suspend fun fillsubmitScore(context: Context, viewModel: LoginViewModel, score: 
 
 
 @Composable
-fun fillGetQuestionScreen() {
+fun fillGetQuestionScreen(courseCode: String? = null) {
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
-        val url = "http://192.168.1.9/quizora/REST/get_all_rows.php" //192.168.100.7:8080 databse URl
+        val baseUrl = "http://192.168.1.9/quizora/REST/get_all_rows.php" //192.168.100.7:8080 databse URl
+        val url = if (courseCode != null) "$baseUrl?course_code=$courseCode" else baseUrl
+
         val request = StringRequest(Request.Method.GET, url,
             { response ->
                 quizQuestions.clear()

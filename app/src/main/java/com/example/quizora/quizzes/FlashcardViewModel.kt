@@ -33,18 +33,25 @@ class FlashcardViewModel : ViewModel() {
         }
     }
 
-    init {
+    /*init {
         fetchFlashcards()
-    }
+    }*/
 
-    fun fetchFlashcards() {
+    fun fetchFlashcards(courseCode: String? = null) {
         viewModelScope.launch {
             try {
-                val response: List<FlashCard> = client.get("http://192.168.1.9/quizora/REST/flashcard.php") {
+                val url = if (courseCode != null) {
+                    "http://192.168.1.9/quizora/REST/flashcard.php?courseCode=$courseCode"
+                } else {
+                    "http://192.168.1.9/quizora/REST/flashcard.php"
+                }
+
+                val response: List<FlashCard> = client.get(url) {
                     accept(ContentType.Application.Json)
                 }.body()
+                val shuffledFlashcards = response.shuffled()
                 Log.d("FlashcardViewModel", "Fetched flashcards: $response")
-                _flashcards.value = response
+                _flashcards.value = shuffledFlashcards
             } catch (e: Exception) {
                 Log.e("FlashcardViewModel", "Error fetching flashcards", e)
             }

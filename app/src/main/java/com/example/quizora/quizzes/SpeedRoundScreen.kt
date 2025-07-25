@@ -50,8 +50,8 @@ data class Question(
 )
 
 @Composable
-fun SpeedRoundScreen(navController: NavHostController, viewModel: LoginViewModel) {
-    GetQuestionScreen()
+fun SpeedRoundScreen(courseCode: String? = null, navController: NavHostController, viewModel: LoginViewModel) {
+    GetQuestionScreen(courseCode = courseCode)
     start(navController = navController, viewModel = viewModel)
 }
 
@@ -396,11 +396,13 @@ suspend fun submitScore(context: Context, viewModel: LoginViewModel, score: Int)
 
 
 @Composable
-fun GetQuestionScreen() {
+fun GetQuestionScreen(courseCode: String? = null) {
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
-        val url = "http://192.168.1.9/quizora/REST/get_all_rows.php" //192.168.100.7:8080 databse URl
+        val baseUrl = "http://192.168.1.9/quizora/REST/get_all_rows.php" //192.168.100.7:8080 databse URl
+        val url = if (courseCode != null) "$baseUrl?course_code=$courseCode" else baseUrl
+
         val request = StringRequest(Request.Method.GET, url,
             { response ->
                 quizQuestions.clear()

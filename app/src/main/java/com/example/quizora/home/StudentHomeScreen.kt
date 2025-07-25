@@ -36,6 +36,7 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.quizora.R
@@ -69,9 +70,7 @@ fun StudentHomeScreen(navController: NavHostController, viewModel: LoginViewMode
                 .padding(20.dp)
         ){
             Line1(navController, user?.name)
-            Line2(onClick = {
-                // leaderboard screen
-            })
+            Line2(navController)
             Line3(navController)
         }
 
@@ -132,7 +131,7 @@ fun Line1(navController: NavHostController, username: String?) {
 
 
 @Composable
-    fun Line2(onClick: () -> Unit) {
+    fun Line2(navController: NavController) {
         //placeholder, where the leaderboard will be shown later.
 
             Card(
@@ -140,7 +139,7 @@ fun Line1(navController: NavHostController, username: String?) {
                     .height(250.dp)
                     .fillMaxWidth()
                     .padding(horizontal = 12.dp, vertical = 8.dp)
-                    .clickable { onClick() },
+                    .clickable {navController.navigate("leaderboard")},
                 shape = RoundedCornerShape(12.dp),
                 colors = CardDefaults.cardColors(containerColor = Color(0xFF9ECEC0))
             ) {
@@ -167,9 +166,9 @@ fun Line1(navController: NavHostController, username: String?) {
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, top = 24.dp)
         ) {//placeholder pics. change pics for each game
-            GameRow(R.drawable.math, "Multiple Choice") { navController.navigate("speed_round") }
-            GameRow(R.drawable.chem, "Fill in The Blanks") { navController.navigate("fill_in") }
-            GameRow(R.drawable.code, "Review?") { navController.navigate("flashcard") }
+            GameRow(R.drawable.math, "Multiple Choice") { navController.navigate("ListOfCourse/${"speed"}") }
+            GameRow(R.drawable.chem, "Fill in The Blanks") { navController.navigate("ListOfCourse/${"fill"}") }
+            GameRow(R.drawable.code, "Comprehensive Review") { navController.navigate("flashcard") }
         }
     }
 

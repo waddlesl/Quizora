@@ -20,6 +20,7 @@ import com.example.quizora.home.AdminHomeLayout
 import com.example.quizora.home.LeaderboardScreen
 import com.example.quizora.network.CourseViewModel
 import com.example.quizora.network.LeaderboardViewModel
+import com.example.quizora.quizzes.AddQuizScreen
 import com.example.quizora.quizzes.CourseListScreen
 import com.example.quizora.quizzes.FillinScreen
 import com.example.quizora.quizzes.chooseQuiz
@@ -33,7 +34,7 @@ fun AppNavGraph() {
     val viewModel: FlashcardViewModel = viewModel()
     val flashcards by viewModel.flashcards.collectAsState()
 
-    NavHost(navController, startDestination = "login") {
+    NavHost(navController, startDestination = "admin_home") {
         composable("login") { LoginScreen(navController, sharedViewModel) }
         composable("register") { RegisterScreen(navController) }
         composable("flashcard") {
@@ -113,14 +114,21 @@ fun AppNavGraph() {
         composable("student_profile") {
             StudentProfileScreen(sharedViewModel)
         }
-        composable("student_home") { StudentHomeScreen(navController = navController, sharedViewModel) }
+        composable("student_home") {
+            StudentHomeScreen(navController = navController, sharedViewModel)
+        }
         composable("admin_home") {
             AdminHomeLayout(navController)
         }
         composable("choose_quiz") {
             chooseQuiz()
-        }}
         }
+        composable("add_quiz") {
+            AddQuizScreen()
+        }
+    }
+}
+
 
 
 

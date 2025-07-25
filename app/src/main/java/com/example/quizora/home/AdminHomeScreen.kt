@@ -126,8 +126,8 @@ fun Top2() {
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp)
     ) {
-        QuizRow(R.drawable.math, "Q#1") { /* quiz 1 click */ }
-        QuizRow(R.drawable.chem, "Q#2") { /* quiz 2 click */ }
+        QuizRow(R.drawable.math, "Q#1") {  }
+        QuizRow(R.drawable.chem, "Q#2") {  }
     }
 }
 
@@ -181,7 +181,7 @@ fun QuizRow(imageRes: Int, label: String, onClick: () -> Unit) {
 fun AddButton(navController: NavController) {
     Button(
         onClick = {
-            navController.navigate("choose_quiz")
+            navController.navigate("add_quiz")
         },
         modifier = Modifier
             .size(50.dp)
